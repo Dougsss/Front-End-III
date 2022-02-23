@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css"/>
+    <title>Aula02</title>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      const formatCurrency = (value) => {
+        return value.toLocaleString("pt-br", {
+          style: "currency",
+          currency: "BRL",
+        });
+      };
+
+      const cars = [
+        {name: "Hyundai Tucson", price: 199990.00,},
+        {name: "Hyundai Creta", price: 99290.00,},
+        {name: "Hyundai ix35", price: 99900.00,},
+        {name: "Hyundai Azera", price: 0.00,},
+        {name: "Hyundai HB20", price: 57890.00,},
+        {name: "Hyundai i30", price: 0.00,},
+        ];
+
+      const List = ({ cars }) => {
+        return (
+          <div>
+            <h1>Lista de produtos em estoque:</h1>
+            <ul>
+              {cars
+                .filter((item) => item.price)
+                .map((item) => {
+                  return (
+                    <li key={item.id}>{`${item.name}, ${formatCurrency(
+                      item.price
+                    )}`}</li>
+                  );
+                })}
+            </ul>
+            <h2>Produtos em falta:</h2>
+            <ul>
+              {cars
+                .filter((item) => !item.price)
+                .map((item) => {
+                  return (
+                    <li key={item.id}>{`${item.name}, ${formatCurrency(
+                      item.price
+                    )}`}</li>
+                  );
+                })}
+            </ul>
+          </div>
+        );
+      };
+
+      const App = () => {
+        return <List cars={cars} />;
+      };
+
+      ReactDOM.render(App(), document.getElementById("container"));
+    </script>
+  </body>
+</html>
